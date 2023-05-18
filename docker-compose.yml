@@ -1,0 +1,46 @@
+services:
+  server:
+    build:
+      context: ./serverF
+      dockerfile: Dockerfile
+    networks:
+      static-network:
+        ipv4_address: 172.22.1.3
+    dns:
+      - 172.22.1.5
+
+  client:
+    build:
+      context: ./clientF
+      dockerfile: Dockerfile
+    networks:
+      static-network:
+        ipv4_address: 172.22.1.4
+    dns:
+      - 172.22.1.5
+
+  mitm:
+    build:
+      context: ./mitmF
+      dockerfile: Dockerfile
+    networks:
+        static-network:
+          ipv4_address: 172.22.1.2
+    dns:
+      - 172.22.1.5
+
+  dnsmasq:
+    build:
+      context: ./dnsmasq
+      dockerfile: Dockerfile
+    volumes:
+      - ./dnsmasq/config:/etc/dnsmasq
+    networks:
+        static-network:
+          ipv4_address: 172.22.1.5
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.22.1.0/16
