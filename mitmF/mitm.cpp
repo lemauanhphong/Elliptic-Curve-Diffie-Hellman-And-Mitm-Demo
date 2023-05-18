@@ -340,7 +340,7 @@ int main(int argc, char* argv[])
                 SecByteBlock iv((const byte*)iv_string.data(), 16);
                 cout << "Received IV: " << iv_hex << endl;
                 cout << "Received ciphertext: " << cipher_hex << endl;
-                cout << "Received from client: " << decrypt(cipher_string, clientaeskey, iv) << endl;
+                cout << "Received from client: " << decrypt(cipher_string, clientaeskey, iv) << endl << endl;
             }
 
             // Generate iv, encrypt msg and then send to client
